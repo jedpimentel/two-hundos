@@ -31,3 +31,13 @@ npm run build
 (build the frontend)
 then
 npm start
+
+
+apolloclient.js has some stuff that needs to be toggled manually between  local and build mode
+not gonna try to solve it right now because #time
+
+
+import Draggable from 'react-draggable';
+react-draggable was depricated, (darn machines :/)
+need to refactor that logic, but in mean time I'll remove strict mode
+I REMOVED STRICT MODE

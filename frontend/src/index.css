@@ -11,3 +11,33 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+*{
+  .text-box-window {
+    border: 1px solid black;
+    background-color: white;
+    width: 300px;
+    position: absolute;
+  }
+  
+  .text-box-bar {
+    background-color: #ccc;
+    cursor: move;
+    padding: 5px;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 150px;
+    border: none;
+  }
+  
+  button {
+    float: right;
+    border: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+  }
+}
