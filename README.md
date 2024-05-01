@@ -1,7 +1,7 @@
 # two-hundos
 
 run via:
-    node --env-file=.env .
+    (moving to dotenv instead update this doc where needed) node --env-file=.env .
 
 
 run frontend via:
@@ -15,3 +15,19 @@ for addTextBox.js:
 
 for setting the mongodb env variable
     heroku config:set VAR_NAME=value
+
+
+
+
+
+
+
+
+
+
+wololololloooooo
+
+npm run build
+(build the frontend)
+then
+npm start

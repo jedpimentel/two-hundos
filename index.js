@@ -1,10 +1,12 @@
+require('dotenv').config();
 const { ApolloServer, gql } = require('apollo-server-express');
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 
-console.log(process.env.MONGODB_CONNECTION_STRING)
+// console.log(process.env.MONGODB_CONNECTION_STRING) // somehow I just do not feel comfy letting this stay active
 if(!process.env.MONGODB_CONNECTION_STRING) throw "lolwut, check your .env"
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');
 });
@@ -93,6 +95,23 @@ async function startServer() {
 //   server.applyMiddleware({ app, path: '/graphql' });
 
   // Start the Express server
+
+
+//   WOLOLO, CHECK THIS LOGIC YO
+    // Serve static files from the React app
+    app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+    // The "catchall" handler: for any request that doesn't
+    // match one above, send back React's index.html file.
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname + '/frontend/build/index.html'));
+    });
+/// sorry for indent chaos
+
+
+
+
+
   app.listen({ port: PORT }, () => {
     console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
   });
