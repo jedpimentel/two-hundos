@@ -113,7 +113,8 @@ async function startServer() {
 
 
   app.listen({ port: PORT }, () => {
-    console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+    // assuming the logs are being viewed locally
+    console.log(`🚀 Server ready at http://localhost:${PORT}`);
   });
 }
 startServer();
