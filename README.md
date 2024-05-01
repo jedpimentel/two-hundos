@@ -41,3 +41,11 @@ import Draggable from 'react-draggable';
 react-draggable was depricated, (darn machines :/)
 need to refactor that logic, but in mean time I'll remove strict mode
 I REMOVED STRICT MODE
+
+
+gotta fixx ports 3000 and 4000 having to be manually set for local mode versus deployment
+build mode is a single port
+
+
+the chatgpt stuff I first tried usint via rest/post, but graphql ended up being more consistent with rest of project, and less headache
+I still need to clean the old stuff.

@@ -34,10 +34,10 @@ function DraggableTextBox({ id, textBox, onSave, onDelete, onUpdatePosition }) {
   };
   
   return (
-    <Draggable onStop={handleDragStop} defaultPosition={{ x: position.x, y: position.y }}>
+    <Draggable handle=".text-box-bar" onStop={handleDragStop} defaultPosition={{ x: position.x, y: position.y }}>
       <div className="text-box-window">
         <div className="text-box-bar">
-          <button onClick={() => onDelete(textBox.id)}>X</button>
+          {/* <button onClick={() => onDelete(textBox.id)}>X</button> */}
         </div>
         {/* <textarea 
           value={content} 
@@ -51,7 +51,7 @@ function DraggableTextBox({ id, textBox, onSave, onDelete, onUpdatePosition }) {
         />
         <div className="text-box-bar">
           {!textBox.isSaved && (
-            <button onClick={handleSave}>Save</button>
+            <button onClick={handleSave}>Hundos</button>
           )}
         </div>
       </div>

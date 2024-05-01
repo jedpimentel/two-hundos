@@ -2,6 +2,13 @@ import React, {useState} from 'react';
 import DraggableTextBox from './DraggableTextBox';
 import { gql, useMutation, useQuery } from '@apollo/client';
 
+
+const GET_CHATGPT_RESPONSE = gql`
+  mutation GetChatGptResponse($prompt: String!) {
+    getChatGptResponse(prompt: $prompt)
+  }
+`;
+
 const GET_ALL_TEXT_BOXES = gql`
   query GetAllTextBoxes {
     getAllTextBoxes {
@@ -33,6 +40,7 @@ mutation SaveTextBox($id: ID!, $content: String!) {
       content
   }
 }`;
+
 // const SAVE_TEXT_BOX = gql`
 // mutation SaveTextBox($id: ID!, $content: String!, $x: Int!, $y: Int!) {
 //   saveTextBox(id: $id, content: $content, x: $x, y: $y) {
@@ -79,8 +87,15 @@ mutation UpdatePosition($id: ID!, $x: Int!, $y: Int!) {
 // }`;
 
 
+function TextBoxList({ onSave }) {
+//   const [getResponse, { gptData, gptLoading, gptError }] = useMutation(GET_CHAT_GPT_RESPONSE);
+  const [getChatGptResponse, { gptData, gptLoading, gptError }] = useMutation(GET_CHATGPT_RESPONSE);
 
-function TextBoxList() {
+//   const handleChatGptRequest = () => {
+//     getResponse({ variables: { prompt: textBox.content } });
+//   };
+
+
   const { loading, error, data } = useQuery(GET_ALL_TEXT_BOXES);
 //   const { loading, error, data } = useQuery(GET_TEXT_BOXES);
 
@@ -120,14 +135,35 @@ function TextBoxList() {
   
     const handleSave = (id, content) => {
         console.log('handleSave', id, content);
+        // onSave('this is a hardcoded string being here for reasons')
+
+        // const gptPrompt = content;
+        // const gptPrompt = `pretend you're two benjamin franklins, stuck in a void, and all you can see is the following floating text: ${gptPrompt}`;
+        // !!! this should technically be after the save, but the save keeps failing, even though the db does get updated
+        // getChatGptResponse({ variables: { prompt: gptPrompt } })
+        getChatGptResponse({ variables: { prompt: content } })
+            .then(response => {
+                console.log("👽ChatGPT response:", response.data.getChatGptResponse);
+                // You can also set state here to display the response in the UI
+                onSave(response.data.getChatGptResponse);
+                window.cheat(response.data.getChatGptResponse);
+                
+            })
+            .catch(error => {
+                console.error("👽Error getting response from ChatGPT:", error);
+            });
+
+
+
+
         saveTextBox({ 
             variables: { id, content },
             update: (cache, { data: { saveTextBox } }) => {
                 // Optionally update cache here if needed
             }
         })
-        .then(response => console.log("Text saved successfully", response))
-        .catch(error => console.error("Error saving text box:", error));
+        .then(response => console.log("Text saved successfully\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1", response))
+        .catch(error => console.error("Error saving text box:\n2\n2\n2\n2\n2\n2\n2\n2\n2\n2\n2\n2\n2", error));
     };
 
 
@@ -216,7 +252,7 @@ function TextBoxList() {
   return (
     <div>
       <h2>Text Boxes</h2>
-      <button onClick={handleAddTextBox}>Add Text Box</button>
+      {/* <button onClick={handleAddTextBox}>Add Text Box</button> */}
       {data.getAllTextBoxes.map(textBox => (
         <DraggableTextBox
             key={textBox.id}

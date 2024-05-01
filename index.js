@@ -4,6 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const path = require('path');
+const bodyParser = require('body-parser');
+const chatGptRouter = require('./chatGPTRouter');
 
 // console.log(process.env.MONGODB_CONNECTION_STRING) // somehow I just do not feel comfy letting this stay active
 if(!process.env.MONGODB_CONNECTION_STRING) throw "lolwut, check your .env"
@@ -38,6 +40,7 @@ const typeDefs = gql`
         saveTextBox(id: ID!, content: String!): TextBox
         updatePosition(id: ID!, x: Int!, y: Int!): TextBox
         deleteTextBox(id: ID!): TextBox
+        getChatGptResponse(prompt: String!): String
     }
 `;
 // saveTextBox(id: ID!, content: String!, x: Int!, y: Int!): TextBox
@@ -107,7 +110,39 @@ const resolvers = {
       },
       deleteTextBox: async (_, { id }) => {
           // Logic to delete a text box
+      },
+    //   zoidberg
+      getChatGptResponse: async (_, { prompt }) => {
+        // console.log('got prompted', prompt)
+        const apiKey = process.env.OPENAI_API_KEY;
+        // console.log('key', apiKey)
+        const API_PROMPT = `keep your response within 150 tokens. pretend you're two benjamin franklins, giving conflicting opinions to the following message: ${prompt}`;
+        const API_ENDPOINT = "https://api.openai.com/v1/chat/completions"; //  newer
+        // const API_ENDPOINT = "https://api.openai.com/v1/completions"; //  legacy
+        const response = await fetch(API_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo-0125", // Specify the model here !!!!IMPORTANT !!!!1!1!1!1 https://platform.openai.com/docs/guides/text-generation
+            // prompt: prompt,
+            "messages": [{"role": "user", "content": API_PROMPT}],
+            "temperature": 0.7,
+            max_tokens: 150
+          })
+        });
+        const data = await response.json();
+        // console.log('received', data)
+        // console.log('da ting', data.choices[0].message.content)
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to fetch response from ChatGPT');
+        }
+        // return data.choices[0].text;
+        return data.choices[0].message.content;
       }
+      
   }
 };
 
@@ -132,6 +167,14 @@ const resolvers = {
 
 async function startServer() {
   const app = express();
+
+  
+  // Middleware for parsing JSON bodies
+  app.use(bodyParser.json());
+  // Use the ChatGPT router
+//   app.use('/api', chatGptRouter); // This will mount your router under "/api"
+  app.use('/api', chatGptRouter); // This will mount your router under "/api"
+//   /api/process-text
 
   // Create a new instance of ApolloServer
   const server = new ApolloServer({

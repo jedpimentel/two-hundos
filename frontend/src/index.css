@@ -41,3 +41,21 @@ code {
     cursor: pointer;
   }
 }
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* display: flex; */
+  justify-content: center;
+  /* align-items: center; */
+  color: #4caf50; /* Green color similar to money lettering */
+  font-size: 24px;
+  z-index: 1000;
+  pointer-events: none; /* Makes the overlay click-through */
+  
+  text-shadow: 2px 2px 4px #8bc34a; /* Light green shadow for depth, resembling dollar background */
+}
