@@ -2,6 +2,10 @@
 import logo from './two-hundos.png';
 import './App.css';
 
+
+import TestQuery from './TestQuery';
+import TextBoxList from './TextBoxList';
+
 function App() {
   return (
     <div className="App">
@@ -19,6 +23,12 @@ function App() {
           Learn React
         </a>
       </header>
+      <TestQuery />  {/* This will execute and show results from the test query */}
+      <p>hurrdurr</p>
+      
+      <TextBoxList />
+      <p>LA DEE DA</p>
+
     </div>
   );
 }

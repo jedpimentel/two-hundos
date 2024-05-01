@@ -1,20 +1,52 @@
 const { ApolloServer, gql } = require('apollo-server-express');
 const express = require('express');
+const mongoose = require('mongoose');
+
+console.log(process.env.MONGODB_CONNECTION_STRING)
+if(!process.env.MONGODB_CONNECTION_STRING) throw "lolwut, check your .env"
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connection.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
+
 // const app = express();
 // const PORT = process.env.PORT || 3000;
 const PORT = process.env.PORT || 4000;
 
 // Define your schema
 const typeDefs = gql`
+  type TextBox {
+    id: ID!
+    content: String
+    x: Int
+    y: Int
+    lastEdited: String
+  }
+
   type Query {
-    hello: String
+    hello: String,
+    getAllTextBoxes: [TextBox]
   }
 `;
 
+const TextBox = require('./models/TextBox');  // Adjust the path as necessary
 // Provide resolver functions for your schema fields
 const resolvers = {
   Query: {
     hello: () => 'Hello world!',
+    getAllTextBoxes: async () => {
+        try {
+          console.log('geting da ting')
+          return await TextBox.find();  // Fetch all text boxes from MongoDB
+        } catch (error) {
+            console.log('NOOOOOOOOO')
+            console.log('OOOOOOOOO')
+            console.log('OOOOOOOOO!')
+            console.error(error);
+          return [];
+        }
+      },
   },
 };
 
