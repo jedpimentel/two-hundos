@@ -116,7 +116,7 @@ const resolvers = {
         // console.log('got prompted', prompt)
         const apiKey = process.env.OPENAI_API_KEY;
         // console.log('key', apiKey)
-        const API_PROMPT = `keep your response within 150 tokens. pretend you're two benjamin franklins, giving conflicting opinions to the following message: ${prompt}`;
+        const API_PROMPT = `keep your response within 150 tokens. pretend you're two historically accurate benjamin franklins, giving conflicting opinions to the following message: ${prompt}`;
         const API_ENDPOINT = "https://api.openai.com/v1/chat/completions"; //  newer
         // const API_ENDPOINT = "https://api.openai.com/v1/completions"; //  legacy
         const response = await fetch(API_ENDPOINT, {

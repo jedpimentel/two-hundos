@@ -251,7 +251,7 @@ function TextBoxList({ onSave }) {
   
   return (
     <div>
-      <h2>Text Boxes</h2>
+      {/* <h2>Text Boxes</h2> */}
       {/* <button onClick={handleAddTextBox}>Add Text Box</button> */}
       {data.getAllTextBoxes.map(textBox => (
         <DraggableTextBox
@@ -263,13 +263,13 @@ function TextBoxList({ onSave }) {
         />
       ))}
       
-       {data.getAllTextBoxes.map(textBox => (
+       {/* {data.getAllTextBoxes.map(textBox => (
          <div key={textBox.id}>
            <p>{textBox.content}</p>
            <p>Position: ({textBox.x}, {textBox.y})</p>
            <p>Last Edited: {textBox.lastEdited}</p>
          </div>
-       ))}
+       ))} */}
     </div>
   );
 

@@ -20,12 +20,22 @@ function DraggableTextBox({ id, textBox, onSave, onDelete, onUpdatePosition }) {
     // Only update position if the text box is already saved
     // console.log(textBox.isSaved)
     // if (textBox.isSaved) {
-      onUpdatePosition(textBox.id, { x: data.x, y: data.y });
-      setPosition({ x: data.x, y: data.y });  // Update local React state
+
+        // I disabled this so people don't drag it too out of the way
+
+    //   onUpdatePosition(textBox.id, { x: data.x, y: data.y });
+    //   setPosition({ x: data.x, y: data.y });  // Update local React state
+
+
     // }
   };
 
-  const handleSave = () => {
+  const handleSave = (event) => {
+    event.preventDefault();
+    document.querySelectorAll('.fade-in').forEach(e => {
+        e.classList.remove('fade-in');
+        e.classList.add('fade-out');
+    })
     if (content.trim()) {
     //   onSave(textBox.id, { content, ...position });
     //   onSave(textBox.id, content, textBox.x, textBox.y);
@@ -37,22 +47,19 @@ function DraggableTextBox({ id, textBox, onSave, onDelete, onUpdatePosition }) {
     <Draggable handle=".text-box-bar" onStop={handleDragStop} defaultPosition={{ x: position.x, y: position.y }}>
       <div className="text-box-window">
         <div className="text-box-bar">
-          {/* <button onClick={() => onDelete(textBox.id)}>X</button> */}
+            {/* <button onClick={() => alert()}>?</button> */}
+            {/* <button onClick={() => onDelete(textBox.id)}>?</button> */}
         </div>
-        {/* <textarea 
-          value={content} 
-          onChange={(e) => setContent(e.target.value)} 
-          disabled={textBox.isSaved}
-        /> */}
         <textarea 
           value={content}
+          placeholder='"questions, comments... just enter some text here and press Hundos"'
           onChange={(e) => setContent(e.target.value)}
           disabled={false && textBox.isSaved} 
         />
+        {!textBox.isSaved && (
+          <button className="unselectable" onTouchEnd={handleSave} onClick={handleSave}>Hundos</button>
+        )}
         <div className="text-box-bar">
-          {!textBox.isSaved && (
-            <button onClick={handleSave}>Hundos</button>
-          )}
         </div>
       </div>
     </Draggable>

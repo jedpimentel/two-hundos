@@ -50,10 +50,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          React App go Brrr
-        </p>
+        <img src={logo} className="App-logo unselectable" alt="logo" />
         
         {/* <button onClick={addTextBox}>Add Text Box</button> */}
         {/* {textBoxes.map(box => (
@@ -65,13 +62,17 @@ function App() {
             onClose={closeTextBox}
           />
         ))} */}
-      </header>
-      <TestQuery />  {/* This will execute and show results from the test query */}
-      <p>hurrdurr</p>
-      
       <TextBoxList onSave={handleTextSave} />
       <Overlay text={overlayText} />
-      <p>LA DEE DA</p>
+      
+      <p className="unselectable">
+          React App go Brrr
+        </p>
+      </header>
+      {/* <TestQuery /> 
+      <p>hurrdurr</p>
+      
+      <p>LA DEE DA</p> */}
 
     </div>
   );

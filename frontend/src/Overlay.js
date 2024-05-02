@@ -4,6 +4,15 @@ import React from 'react';
 const Overlay = ({ text }) => {
   if (!text) return null; // If no text is provided, do not render the overlay
 
+  const textArr = text.split('\n').filter(t => t.length > 2);
+  console.log('shadoop')
+  document.querySelectorAll('.fade-out').forEach(e => {
+    e.classList.remove('fade-out');
+    e.classList.add('fade-in');
+    e.style.animationPlayState="paused";
+    e.style.animationPlayState="running";
+  })
+  console.log(textArr)
   return (
     // <div className="overlay">
     //   {text}
@@ -11,8 +20,9 @@ const Overlay = ({ text }) => {
 
     
     <div className="overlay">
-    {text.split('\n').map((item, index) => (
-    <p key={index}>{item}</p> // Using index as key; consider using more unique keys if available
+    {textArr.map((item, index) => (
+        
+      <p className="fade-in" key={index}>{item}</p> // Using index as key; consider using more unique keys if available
     ))}
     </div>
   );

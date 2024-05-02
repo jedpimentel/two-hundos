@@ -49,3 +49,7 @@ build mode is a single port
 
 the chatgpt stuff I first tried usint via rest/post, but graphql ended up being more consistent with rest of project, and less headache
 I still need to clean the old stuff.
+
+
+I NEED TO ADD ERROR HANDLING
+For if mongo or chatGPT are down or something
