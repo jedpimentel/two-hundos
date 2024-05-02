@@ -1,5 +1,29 @@
 # two-hundos
 
+This app lets you speak to two benjamin Franklins at the same time.
+They're always bickering.
+
+Last request made is saved and persists accross sessions.
+
+This project is at least 80-90% AI generated. Transcript:
+https://chat.openai.com/share/66b6840d-9387-40ac-8172-da8568766884
+
+I was surprised how often copy/pasting worked.
+Moreso surprised by how much faster it was than a websearch.
+There where definitely some esoteric bugs that were resolved via hunches.
+The AI also led me towards stuff that was depricated, and ended becoming part of the project.
+(not everything was copy-pasted, and towards the end the AI diverged more from previous code)
+
+I feel the stack is bloated for what the app does
+
+
+
+
+
+
+
+=====here be dragons=====
+
 run via:
     (moving to dotenv instead update this doc where needed) node --env-file=.env .
 
